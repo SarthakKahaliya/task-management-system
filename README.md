@@ -1,8 +1,8 @@
-#Task Management System 
+# Task Management System 
 with Login and registration where a user can assign task to others which will show up on their dashboard, made with help of HTLM, CSS, PHP, MySqli.
 
 
-#Instuctions for setting up:
+## Instuctions for setting up:
 1. Download and install Xampp and run the apache and mysql server.
 2. place the folder into Xampp>htdocs
 3. access the website on a web-browser with the link http://localhost/{Name of the folder}/index.php
