@@ -22,7 +22,7 @@
                 </div>
             <?php }elseif ($_REQUEST['info'] == "usernotfound"){?>
                 <div class="alert alert-warning d-flex" style="justify-content: space-between;" role="alert">
-                    <div><span style="font-weight: bold;"><?php echo $_REQUEST['username']; ?></span> not found.</div>
+                    <div><span style="font-weight: bold;"><?php echo $_REQUEST['user']; ?></span> not found.</div>
                     <a class="btn btn-sm mr-2" style="border: solid 1px black;" href="edit.php?id=<?php echo $id ?>">X</a>
                 </div>
             <?php } ?>
