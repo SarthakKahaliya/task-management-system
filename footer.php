@@ -3,8 +3,8 @@
 
 	<div>Copyright 2022 @ Sarthak Kahaliya</div>
 
-	<div><a href="https://github.com/SarthakKahaliya/task-management-system" style="color: white;">Github</div>
+	<div><a href="https://github.com/SarthakKahaliya/task-management-system" style="color: white;">Github</a></div>
 	
-	<div><a href="https://www.linkedin.com/in/sarthak-kahaliya/" style="color: white;">Linkedin</div>
+	<div><a href="https://www.linkedin.com/in/sarthak-kahaliya/" style="color: white;">Linkedin</a></div>
 
 </footer>
