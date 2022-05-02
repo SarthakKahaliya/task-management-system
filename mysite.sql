@@ -1,6 +1,3 @@
-// Add in database name "mysite"
-
-
 CREATE TABLE `assignedusers` (
  `id` int(11) NOT NULL AUTO_INCREMENT,
  `projectID` int(11) NOT NULL,
