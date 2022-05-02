@@ -101,7 +101,7 @@ $usern = $_SESSION['username'];
                     }
 
                 }else{
-                    header("Location: edit.php?info=usernotfound&id=$id&username=$username");
+                    header("Location: edit.php?info=usernotfound&id=$id&user=$username");
                     exit();
                 }
             }
