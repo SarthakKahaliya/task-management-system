@@ -9,8 +9,8 @@
    <div class="container mt-5" style="margin-bottom: 100px">
 
         <?php foreach($query as $q){
-            $projectID = $q['id'];
-            $usql = "SELECT * FROM assignedusers where projectID = '$projectID'";
+            $taskID = $q['id'];
+            $usql = "SELECT * FROM assignedusers where taskID = '$taskID'";
             $uquery = mysqli_query($conn, $usql);
             ?>
             <div class=" p-5 rounded-lg text-center <?php 
@@ -41,16 +41,21 @@
             </div>
             <p class="mt-5 border-left border-dark pl-3"><?php echo $q['content'];?></p>
                 <br>
-                <br>
+                
+                <h4>Created By</h4>
+                <div class="btn btn-info mb-3"><?php echo $q['creater'] ?></div>
                 <h4>Assigned Users</h4>
                 <div class="row container mt-3">
-                    <?php foreach($uquery as $uq){ ?>
+                    <?php foreach($uquery as $uq){
+                        if($uq['username'] != $q['creater']){
+                     ?>
+
                         <div class="card pl-3 mr-3 bg-transparent" style="display:flex; flex-direction: row; border: solid 1px white;">
                             <div class="d-flex mr-3 pt-1 pb-1">
                                 <strong><?php echo $uq['username'] ?></strong>  
                             </div> 
                         </div>
-                    <?php } ?>
+                    <?php } }?>
                 </div>
 
             </form>

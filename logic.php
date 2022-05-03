@@ -24,7 +24,7 @@
 
     // Get data to display on index page
 
-    $sql = "SELECT * FROM taskdata WHERE id IN(SELECT projectID from assignedusers WHERE username = '$usern') ORDER BY createdOn DESC";
+    $sql = "SELECT * FROM taskdata WHERE id IN(SELECT taskID from assignedusers WHERE username = '$usern') ORDER BY createdOn DESC";
     $query = mysqli_query($conn, $sql);
 
     $selection = "createddss";
@@ -43,7 +43,7 @@
         if($pselection == "all"){
 
             if($selection == 'deadline'){
-            $sql = "SELECT * FROM taskdata WHERE id IN(SELECT projectID from assignedusers WHERE username = '$usern') ORDER BY deadline ASC";
+            $sql = "SELECT * FROM taskdata WHERE id IN(SELECT taskID from assignedusers WHERE username = '$usern') ORDER BY deadline ASC";
             $query = mysqli_query($conn, $sql);
 
             $selection = "deadline";
@@ -52,7 +52,7 @@
 
             }
             if($selection == 'createdass'){
-                $sql = "SELECT * FROM taskdata WHERE id IN(SELECT projectID from assignedusers WHERE username = '$usern') ORDER BY createdOn ASC";
+                $sql = "SELECT * FROM taskdata WHERE id IN(SELECT taskID from assignedusers WHERE username = '$usern') ORDER BY createdOn ASC";
                 $query = mysqli_query($conn, $sql);
 
                 $selection = "createdass";
@@ -60,7 +60,7 @@
             }
 
             if($selection == 'createddss'){
-                $sql = "SELECT * FROM taskdata WHERE id IN(SELECT projectID from assignedusers WHERE username = '$usern') ORDER BY createdOn DESC";
+                $sql = "SELECT * FROM taskdata WHERE id IN(SELECT taskID from assignedusers WHERE username = '$usern') ORDER BY createdOn DESC";
                 $query = mysqli_query($conn, $sql);
 
                 $selection = "createddss";
@@ -74,7 +74,7 @@
             $title = $p_and_id[1];
 
             if($selection == 'deadline'){
-            $sql = "SELECT * FROM taskdata WHERE id IN(SELECT projectID from assignedusers WHERE username = '$usern') AND pid = $pid ORDER BY deadline ASC";
+            $sql = "SELECT * FROM taskdata WHERE id IN(SELECT taskID from assignedusers WHERE username = '$usern') AND pid = $pid ORDER BY deadline ASC";
             $query = mysqli_query($conn, $sql);
 
             $selection = "deadline";
@@ -84,7 +84,7 @@
 
             }
             if($selection == 'createdass'){
-                $sql = "SELECT * FROM taskdata WHERE id IN(SELECT projectID from assignedusers WHERE username = '$usern') AND pid = $pid ORDER BY createdOn ASC";
+                $sql = "SELECT * FROM taskdata WHERE id IN(SELECT taskID from assignedusers WHERE username = '$usern') AND pid = $pid ORDER BY createdOn ASC";
                 $query = mysqli_query($conn, $sql);
 
                 $selection = "createdass";
@@ -93,7 +93,7 @@
             }
 
             if($selection == 'createddss'){
-                $sql = "SELECT * FROM taskdata WHERE id IN(SELECT projectID from assignedusers WHERE username = '$usern') AND pid = $pid ORDER BY createdOn DESC";
+                $sql = "SELECT * FROM taskdata WHERE id IN(SELECT taskID from assignedusers WHERE username = '$usern') AND pid = $pid ORDER BY createdOn DESC";
                 $query = mysqli_query($conn, $sql);
 
                 $selection = "createddss";
@@ -144,7 +144,7 @@
 
         if (mysqli_query($conn, $sql)) {
             $last_id = mysqli_insert_id($conn);
-            $sql = "INSERT INTO assignedusers(projectID, username) VALUES('$last_id', '$usern')";
+            $sql = "INSERT INTO assignedusers(taskID, username) VALUES('$last_id', '$usern')";
             mysqli_query($conn, $sql);
 
             header("Location: index.php?info=added");
@@ -157,6 +157,8 @@
         $id = $_REQUEST['id'];
         $sql = "SELECT * FROM taskdata WHERE id = $id";
         $query = mysqli_query($conn, $sql);
+        $usql = "SELECT * FROM assignedusers where taskID = '$id'";
+        $uquery = mysqli_query($conn, $usql);
     }
 
     // Delete a task
@@ -166,23 +168,16 @@
         $sql = "SELECT creater from taskdata WHERE id = $id";
         $creater = mysqli_query($conn, $sql);
 
-        if($creater == $usern){
 
-            $sql = "DELETE FROM taskdata WHERE id = $id";
-            mysqli_query($conn, $sql);
+        $sql = "DELETE FROM taskdata WHERE id = $id";
+        mysqli_query($conn, $sql);
 
-            $sql = "DELETE FROM assignedusers WHERE projectID = $id";
-            mysqli_query($conn, $sql);
+        $sql = "DELETE FROM assignedusers WHERE taskID = $id";
+        mysqli_query($conn, $sql);
 
-            header("Location: index.php?info=deleted");
-            exit();
+        header("Location: index.php?info=deleted");
+        exit();
 
-        }else{
-
-            header("Location: index.php?info=nottaskcreater");
-            exit();
-
-        }
     }
 
     // Update a post
@@ -214,7 +209,7 @@
             if($result){
                 if( mysqli_num_rows($result)>=1){
 
-                    $sql = "SELECT * FROM assignedusers WHERE projectID = $id AND username = '$username'";
+                    $sql = "SELECT * FROM assignedusers WHERE taskID = $id AND username = '$username'";
                     $exist = mysqli_query($conn, $sql);
                     if($exist){
                         if(mysqli_num_rows($exist)>=1){
@@ -224,7 +219,7 @@
 
                             $sql = "UPDATE taskdata SET content = '$content', status = '$status' WHERE id = $id";
                             if (mysqli_query($conn, $sql)) {
-                                $sql = "INSERT INTO assignedusers(projectID, username) VALUES('$id', '$username')";
+                                $sql = "INSERT INTO assignedusers(taskID, username) VALUES('$id', '$username')";
                                 mysqli_query($conn, $sql);
 
                                 header("Location: edit.php?info=added&id=$id&user=$username");
@@ -254,22 +249,36 @@
 
     if(isset($_REQUEST['deleteassign'])){
 
-        $id = $_REQUEST['id'];
-        $username = $_REQUEST['deleteuser'];
+        $id = $_REQUEST['deletetaskid'];
+        $username = $_REQUEST['deleteassign'];
 
-        $sql = "SELECT creater from taskdata WHERE id = $id";
-        $creater = mysqli_query($conn, $sql);
+        
 
-        if($creater != $username){
+        $sql = "DELETE FROM assignedusers WHERE taskID = $id and username = '$username'";
+        mysqli_query($conn, $sql);
 
-            $sql = "DELETE FROM assignedusers WHERE projectID = $id and username = '$username'";
-            mysqli_query($conn, $sql);
-
-            header("Location: edit.php?info=removed&id=$id&user=$username");
-            exit();
-        }
-
+        header("Location: edit.php?info=removed&id=$id&user=$username");
+        exit();
+        
+        
     }
+
+
+
+    if(isset($_REQUEST['deleteonlythis'])){
+
+        $id = $_REQUEST['deletetaskid'];
+        $username = $_REQUEST['deleteonlythis'];
+
+        $sql = "DELETE FROM assignedusers WHERE taskID = $id and username = '$username'";
+        mysqli_query($conn, $sql);
+
+        header("Location: index.php");
+        exit();
+
+        
+    }
+
 
 
     // Delete Project
@@ -293,7 +302,7 @@
                 foreach ($query as $q){
 
                     $qtaskid = $q['id'];
-                    $sql = "DELETE FROM assignedusers WHERE projectID = $qtaskid ";
+                    $sql = "DELETE FROM assignedusers WHERE taskID = $qtaskid ";
                     mysqli_query($conn, $sql);
                 }
 

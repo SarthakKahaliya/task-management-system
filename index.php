@@ -38,7 +38,7 @@ include "header.php";
 
 
         <div>
-            <a href="create.php" class="btn  btn-success  pl-4 pr-4 mb-3">+ Add Project/Task</a>
+            <a href="create.php" class="btn  btn-success  pl-4 pr-4 mb-3 ml-3">+ Add Project/Task</a>
         </div>
         <!-- Create a new Post button and Filters -->
         <div class=" ml-3 mr-3 d-flex" style="justify-content: space-between;">

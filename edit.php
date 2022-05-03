@@ -36,13 +36,10 @@
 
 
         <?php foreach($query as $q){ 
-            $projectID = $q['id'];
-            $usql = "SELECT * FROM assignedusers where projectID = '$projectID'";
-            $uquery = mysqli_query($conn, $usql);
             ?>
 
             <form method="POST" >
-                <?php echo $q['creater']?>
+                <strong>Created by: <?php echo $q['creater']?></strong>
                 <input type="text" hidden value='<?php echo $q['id']?>' name="id">
                 <input type="text" readonly placeholder="Project" class="form-control my-3 <?php 
                         if($q['status'] == 'Completed'){ ?> 
@@ -88,38 +85,58 @@
 
                     <button class="btn btn-success btn-sm pl-3 pr-3 ml-2" name="adduser" onclick="return confirm('Are you sure you wish to add this user?')">Add User</button>
                 </div>
-                <br>
+
+                <h4>Created By</h4>
+                <div class="btn btn-info mb-3"><?php echo $q['creater'] ?></div>
+
                 <h4>Assigned Users</h4>
                 <div class="row container mt-3">
-                    <?php foreach($uquery as $uq){ ?>
-                        <div class="card pl-3 mr-3 bg-transparent" style="display:flex; flex-direction: row; border: solid 1px white;">
-                            <div class="d-flex mr-3 pt-1 pb-1">
-                                <input type="text" name="deleteuser" value="<?php echo $uq['username'] ?>" hidden>
-                                <strong><?php echo $uq['username'] ?></strong>  
-                            </div> 
+                    <form>
+                        <div class="d-flex" >
+                        <?php foreach($uquery as $uq){
 
-                            <div  class="mt-0 mb-0">
-                                <?php if($q['creater'] == $usern){
-                                    if($uq['username'] != $q['creater']){?>
-                                <button class="btn btn-danger btn-sm pt-1 pb-1" onclick="return confirm('Are you sure you want to remove this user from the task?');" name="deleteassign">X</button>
-                            <?php   } 
+                        if($usern == $q['creater']){ 
+                            if($q['creater'] != $uq['username']){
 
-                                }else{
-                                    if($uq['username'] != $q['creater']){
-                                        if($uq['username'] == $usern){?>
-                                    <button class="btn btn-danger btn-sm pt-1 pb-1" onclick="return confirm('Are you sure you want to remove this user from the task?');" name="deleteassign">X</button>
-                                <?php   } 
-                                    } 
-                                }?> 
-                            </div>
+
+                            ?>
+                                
+                                    <div class="mr-3">
+                                        <input hidden type="text" name="deletetaskid" value="<?php echo $uq['taskID'] ?>">  
+                                        <input class="btn btn-danger" type="submit" name="deleteassign" value="<?php echo $uq['username'] ?> " onclick="return confirm('Are you sure you want to remove this user from your task?')">
+                                    </div> 
+                               
+                        <?php } 
+                        }else{
+                            if($q['creater'] != $uq['username']){
+
+                                if($usern == $uq['username']){ ?>
+                                    <div class="mr-3">
+                                        <input hidden type="text" name="deletetaskid" value="<?php echo $uq['taskID'] ?>">  
+                                        <input class="btn btn-danger" type="submit" name="deleteonlythis" value="<?php echo $uq['username'] ?> "  onclick="return confirm('Are you sure you want to remove yourself from this task?')">
+                                    </div> 
+
+                                <?php }elseif($usern != $uq['username'] ){
+
+                            ?>
+                                
+                                    <div class="mr-3">
+                                        <input hidden class="btn btn-danger" type="text" name="deletetaskid" value="<?php echo $uq['taskID'] ?>">  
+                                        <div class="btn btn-outline-light"><?php echo $uq['username'] ?></div>
+                                    </div> 
+                               
+                        <?php
+                        }}
+
+
+
+                         }}?>
                         </div>
-                    <?php } ?>
-                </div>
-
+                    </form>
+                </div> 
             </form>
+        <?php } ?>  
 
-            
-        <?php } ?>    
    </div>
 
     <!-- Bootstrap JS -->
