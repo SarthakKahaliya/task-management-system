@@ -1,22 +1,7 @@
 
-<?php
-session_start();
-
-//connect to database
-$db=mysqli_connect("localhost","root","","mysite");
-
-if(!$_SESSION['username']){
-  header("location: login.php");
-  exit();
-}
-
-$usern = $_SESSION['username'];
-
-
-
-
-?>
-
+<?php if(basename($_SERVER['PHP_SELF']) == 'logic.php'){
+    header("location: index.php");
+} ?>
 
 <?php
 
@@ -39,17 +24,25 @@ $usern = $_SESSION['username'];
 
     // Get data to display on index page
 
-    $sql = "SELECT * FROM taskdata WHERE id IN(SELECT projectID from assignedusers WHERE username = '$usern') ORDER BY createdOn ASC";
+    $sql = "SELECT * FROM taskdata WHERE id IN(SELECT projectID from assignedusers WHERE username = '$usern') ORDER BY createdOn DESC";
     $query = mysqli_query($conn, $sql);
 
-    $selection = "created";
+    $selection = "createddss";
+    $pselection = "all";
 
-    // Get user data who are assigned task
 
+    $sql = "SELECT * FROM projectdata";
+    $pquery = mysqli_query($conn, $sql);
 
-    if(isset($_REQUEST['orderby'])){
-        $order = $_REQUEST['orderby'];
-        if($order == 'deadline'){
+    
+
+    if(isset($_REQUEST['pfilter']) || isset($_REQUEST['orderby'])){
+        $selection = $_REQUEST['orderby'];
+        $pselection = $_REQUEST['pfilter'];
+
+        if($pselection == "all"){
+
+            if($selection == 'deadline'){
             $sql = "SELECT * FROM taskdata WHERE id IN(SELECT projectID from assignedusers WHERE username = '$usern') ORDER BY deadline ASC";
             $query = mysqli_query($conn, $sql);
 
@@ -57,33 +50,97 @@ $usern = $_SESSION['username'];
             
             
 
-        }
-        if($order == 'created'){
-            $sql = "SELECT * FROM taskdata WHERE id IN(SELECT projectID from assignedusers WHERE username = '$usern') ORDER BY createdOn ASC";
+            }
+            if($selection == 'createdass'){
+                $sql = "SELECT * FROM taskdata WHERE id IN(SELECT projectID from assignedusers WHERE username = '$usern') ORDER BY createdOn ASC";
+                $query = mysqli_query($conn, $sql);
+
+                $selection = "createdass";
+
+            }
+
+            if($selection == 'createddss'){
+                $sql = "SELECT * FROM taskdata WHERE id IN(SELECT projectID from assignedusers WHERE username = '$usern') ORDER BY createdOn DESC";
+                $query = mysqli_query($conn, $sql);
+
+                $selection = "createddss";
+
+            }
+
+        }else{
+
+            $p_and_id = explode('|', $_REQUEST['pfilter']);
+            $pid = $p_and_id[0];
+            $title = $p_and_id[1];
+
+            if($selection == 'deadline'){
+            $sql = "SELECT * FROM taskdata WHERE id IN(SELECT projectID from assignedusers WHERE username = '$usern') AND pid = $pid ORDER BY deadline ASC";
             $query = mysqli_query($conn, $sql);
 
-            $selection = "created";
+            $selection = "deadline";
+            $pselection = $pid;
+            
+            
 
+            }
+            if($selection == 'createdass'){
+                $sql = "SELECT * FROM taskdata WHERE id IN(SELECT projectID from assignedusers WHERE username = '$usern') AND pid = $pid ORDER BY createdOn ASC";
+                $query = mysqli_query($conn, $sql);
+
+                $selection = "createdass";
+                $pselection = $pid;
+
+            }
+
+            if($selection == 'createddss'){
+                $sql = "SELECT * FROM taskdata WHERE id IN(SELECT projectID from assignedusers WHERE username = '$usern') AND pid = $pid ORDER BY createdOn DESC";
+                $query = mysqli_query($conn, $sql);
+
+                $selection = "createddss";
+                $pselection = $pid;
+
+            }
+            
         }
-        
+
+
     }
 
 
+
+
+    // Get user task data whoever is assigned task
+
+
+
+
     
-   
+   // Create a new project
+
+    if(isset($_REQUEST['new_project'])){
+        $project_name = $_REQUEST['project_name'];
+        
+        $sql = "INSERT INTO projectdata(projectname) VALUES('$project_name')";
+        mysqli_query($conn, $sql);
+        header("Location: create.php?info=addedproject");
+        exit();
+
+    }
 
 
 
 
 
 
-    // Create a new post
-    if(isset($_REQUEST['new_post'])){
-        $title = $_REQUEST['title'];
+    // Create a new task
+    if(isset($_REQUEST['new_task'])){
+        $p_and_id = explode('|', $_REQUEST['p_and_id']);
+        $pid = $p_and_id[0];
+        $title = $p_and_id[1];
         $content = $_REQUEST['content'];
         $deadline = $_REQUEST['deadline'];
         
-        $sql = "INSERT INTO taskdata(title, content, deadline,status) VALUES('$title', '$content', '$deadline', 'Not_Started')";
+        $sql = "INSERT INTO taskdata(pid, title, content, deadline, status) VALUES('$pid', '$title', '$content', '$deadline', 'Not_Started')";
 
         if (mysqli_query($conn, $sql)) {
             $last_id = mysqli_insert_id($conn);
@@ -95,14 +152,14 @@ $usern = $_SESSION['username'];
         }
     }
 
-    // Get post data based on id
+    // Get task data based on id
     if(isset($_REQUEST['id'])){
         $id = $_REQUEST['id'];
         $sql = "SELECT * FROM taskdata WHERE id = $id";
         $query = mysqli_query($conn, $sql);
     }
 
-    // Delete a post
+    // Delete a task
     if(isset($_REQUEST['delete'])){
         $id = $_REQUEST['id'];
 
@@ -119,46 +176,21 @@ $usern = $_SESSION['username'];
     // Update a post
     if(isset($_REQUEST['update'])){
         $id = $_REQUEST['id'];
-        $title = $_REQUEST['title'];
         $content = $_REQUEST['content'];
         $status = $_REQUEST['status'];
-        $assign = $_REQUEST['assign'];
-        if($assign != ''){
-            $username=mysqli_real_escape_string($conn ,$assign);
-            $sql="SELECT * FROM users WHERE  username='$username'";
-            $result=mysqli_query($conn,$sql);
-
-            if($result){
-                if( mysqli_num_rows($result)>=1){
-                    $sql = "UPDATE taskdata SET title = '$title', content = '$content', status = '$status' WHERE id = $id";
-                    if (mysqli_query($conn, $sql)) {
-                        $sql = "INSERT INTO assignedusers(projectID, username) VALUES('$id', '$username')";
-                        mysqli_query($conn, $sql);
-
-                        header("Location: edit.php?info=added&id=$id&user=$username");
-                        exit();
-                    }
-
-                }else{
-                    header("Location: edit.php?info=usernotfound&id=$id&user=$username");
-                    exit();
-                }
-            }
         
+            
+        $sql = "UPDATE taskdata SET content = '$content', status = '$status' WHERE id = $id";
+        mysqli_query($conn, $sql);
 
-        }else{
-            $sql = "UPDATE taskdata SET title = '$title', content = '$content', status = '$status' WHERE id = $id";
-            mysqli_query($conn, $sql);
-
-            header("Location: index.php?info=updated");
-            exit();
-        }
+        header("Location: index.php?info=updated");
+        exit();
+        
     }
 
-        // Update a post
+        // Assign User
     if(isset($_REQUEST['adduser'])){
         $id = $_REQUEST['id'];
-        $title = $_REQUEST['title'];
         $content = $_REQUEST['content'];
         $status = $_REQUEST['status'];
         $assign = $_REQUEST['assign'];
@@ -169,24 +201,35 @@ $usern = $_SESSION['username'];
 
             if($result){
                 if( mysqli_num_rows($result)>=1){
-                    $sql = "UPDATE taskdata SET title = '$title', content = '$content', status = '$status' WHERE id = $id";
-                    if (mysqli_query($conn, $sql)) {
-                        $sql = "INSERT INTO assignedusers(projectID, username) VALUES('$id', '$username')";
-                        mysqli_query($conn, $sql);
 
-                        header("Location: edit.php?info=added&id=$id&user=$username");
-                        exit();
+                    $sql = "SELECT * FROM assignedusers WHERE projectID = $id AND username = '$username'";
+                    $exist = mysqli_query($conn, $sql);
+                    if($exist){
+                        if(mysqli_num_rows($exist)>=1){
+                            header("Location: edit.php?info=exist&id=$id&user=$username");
+                            exit();
+                        }else{
+
+                            $sql = "UPDATE taskdata SET content = '$content', status = '$status' WHERE id = $id";
+                            if (mysqli_query($conn, $sql)) {
+                                $sql = "INSERT INTO assignedusers(projectID, username) VALUES('$id', '$username')";
+                                mysqli_query($conn, $sql);
+
+                                header("Location: edit.php?info=added&id=$id&user=$username");
+                                exit();
+                            }
+
+                        }
                     }
-
                 }else{
                     header("Location: edit.php?info=usernotfound&id=$id&user=$username");
                     exit();
                 }
+            
             }
-        
 
         }else{
-            $sql = "UPDATE taskdata SET title = '$title', content = '$content', status = '$status' WHERE id = $id";
+            $sql = "UPDATE taskdata SET content = '$content', status = '$status' WHERE id = $id";
             mysqli_query($conn, $sql);
 
             header("Location: index.php?info=updated");
@@ -194,6 +237,8 @@ $usern = $_SESSION['username'];
         }
     }
 
+
+    // Delete Assigned User
 
     if(isset($_REQUEST['deleteassign'])){
 
@@ -207,5 +252,43 @@ $usern = $_SESSION['username'];
         exit();
 
     }
+
+
+    // Delete Project
+
+    if(isset($_REQUEST['delete_project'])){
+
+
+        if($_REQUEST['pfilter'] != 'all'){
+            $p_and_id = explode('|', $_REQUEST['pfilter']);
+            $pid = $p_and_id[0];
+            $title = $p_and_id[1];
+
+            $sql = "SELECT * FROM taskdata WHERE pid = $pid";
+            $query = mysqli_query($conn, $sql);
+
+            foreach ($query as $q){
+
+                $qtaskid = $q['id'];
+                $sql = "DELETE FROM assignedusers WHERE projectID = $qtaskid ";
+                mysqli_query($conn, $sql);
+            }
+
+            $sql = "DELETE FROM taskdata WHERE pid = $pid";
+            mysqli_query($conn, $sql);
+
+            $sql = "DELETE FROM projectdata WHERE id = $pid";
+            mysqli_query($conn, $sql);
+
+            header("Location: index.php");
+            exit();
+        }
+
+
+    }
+
+
+
+
 
 ?>

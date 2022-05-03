@@ -35,29 +35,11 @@ if($db)
 }
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <title>Task Management System</title>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
-</head>
-<body>
+<?php
 
+include "header.php";
 
-<div style="margin-bottom: 100px">
-  <div class="container pt-3 mb-3" style="text-align: center;">
-    <hgroup>
-        <h1><strong>Task Management System</strong></h1>
-    </hgroup>
-  </div>
-
-
-  <div class="container navbar text-white bg-dark " style="border-radius: 5px; justify-content: center;">
-    <h3>Login</h3>
-
-  </div>
+?>
 
   <main class="main-content">
 

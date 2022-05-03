@@ -1,5 +1,6 @@
 <?php
 
+include "auth.php";
 include "header.php";
 
 ?>
@@ -9,14 +10,14 @@ include "header.php";
         <!-- Display any info -->
         <?php if(isset($_REQUEST['info'])){ ?>
             <?php if($_REQUEST['info'] == "added"){?>
-                <div class="alert alert-success ml-3 mr-3 d-flex" style="justify-content: space-between;" role="alert">
+                <div class="alert alert-success ml-3 mr-3 d-flex" style="justify-content: space-between;">
                     
                     <div>Post has been added successfully</div>
                     <a class="btn btn-sm mr-2" style="border: solid 1px black;" href="index.php">X</a>
                     
                 </div>
             <?php }elseif ($_REQUEST['info'] == "updated"){?>
-                <div class="alert alert-primary ml-3 mr-3 d-flex" style="justify-content: space-between;" role="alert">
+                <div id="hideMe" class="alert alert-primary ml-3 mr-3 d-flex" style="justify-content: space-between;">
                     
                     <div>Post has been updated successfully</div>
                     <a class="btn btn-sm mr-2" style="border: solid 1px black;" href="index.php">X</a>
@@ -29,34 +30,75 @@ include "header.php";
                     <a class="btn btn-sm mr-2" style="border: solid 1px black;" href="index.php">X</a>
                     
                 </div>
+
+
             <?php } ?>
+            
         <?php } ?>
 
-        <!-- Create a new Post button -->
-        <div class="mt-4 ml-3 mr-3 d-flex" style="justify-content: space-between;">
-            <a href="create.php" class="btn btn-outline-dark btn-light text-black pl-4 pr-4 mb-2">+ Add Task</a>
 
+        <div>
+            <a href="create.php" class="btn  btn-success  pl-4 pr-4 mb-3">+ Add Project/Task</a>
+        </div>
+        <!-- Create a new Post button and Filters -->
+        <div class=" ml-3 mr-3 d-flex" style="justify-content: space-between;">
             
-            <form method="post" action="" >
-                <strong>Sort by: </strong>
-                <select class="select mb-3 ml-3 p-1" style="width: 150px" name="orderby" onchange="this.form.submit()" >
 
-                    <option value="created" <?php 
 
-                    if($selection == 'created'){
-                        echo "selected";
-                    }
-                    ?>>Date Created</option>
+            <form method="POST" action="">
+                <div class="d-flex">
+                    
+                    <div>
+                        <strong>Sort by: </strong>
+                        <select class="select mb-3 ml-2 p-1 mr-3 mt-1" style="width: 220px" name="orderby" onchange="this.form.submit()" >
 
-                    <option value="deadline" <?php 
+                            <option value="createdass" <?php 
 
-                    if($selection == 'deadline'){
-                        echo "selected";
-                    }
-                    ?>>Deadline</option>
-                </select>
+                            if($selection == 'createdass'){
+                                echo "selected";
+                            }
+                            ?>>Date Created Ascending</option>
 
-               <!--  <button type="submit" name="order">Filter</button> -->
+                            <option value="createddss" <?php 
+
+                            if($selection == 'createddss'){
+                                echo "selected";
+                            }
+                            ?>>Date Created Descending</option>
+
+                            <option value="deadline" <?php 
+
+                            if($selection == 'deadline'){
+                                echo "selected";
+                            }
+                            ?>>Deadline</option>
+                        </select>
+                    </div>
+                    <div class="mr-3">
+                        <select class="select mb-3 mr-3 p-1 mt-1" style="width: 350px;" name="pfilter" onchange="this.form.submit()">
+                            <option value = "all" <?php 
+                            if($pselection == 'all'){
+                                echo "selected";
+                            }
+
+                        ?> >ALL Projects and Tasks</option>
+                        <?php foreach($pquery as $pq){ ?>
+                            <option value="<?php echo $pq['id'] ?>|<?php echo $pq['projectname'] ?>" <?php
+
+                                if($pselection == $pq['id']){
+                                    echo "selected";
+                                }
+
+                            ?>>ID: <?php echo $pq['id'] ?> &emsp;  Project: <?php echo $pq['projectname'] ?> </option>
+                        <?php } ?>    
+                        </select>
+                        <button class="btn btn-danger" name="delete_project" onclick="return confirm('Deleting the project will delete all the tasks in it too. Are you sure you want to delete it?')">Delete Selected Project</button>
+                    </div>
+
+                    
+                    
+                </div>
+
             </form>
         </div>
 

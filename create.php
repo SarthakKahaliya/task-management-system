@@ -1,5 +1,6 @@
 <?php
-
+    
+    include "auth.php";
     include "header.php";
 
 
@@ -10,15 +11,26 @@
 
    <div class="container mt-5" style="margin-bottom: 100px">
 
-    <!-- Display any info -->
+
         <form method="POST">
-            <input type="text" placeholder="Project" class="form-control my-3 bg-dark text-white text-center" name="title" style="border-radius: 5px;">
-            <textarea name="content" placeholder="Task Description." class="form-control my-3 bg-dark text-white" style="border-radius: 5px;" cols="30" rows="6"></textarea>
+            <input type="text" class="form-control"  name="project_name" placeholder="Project Name">
+            <button class="btn btn-success pl-5 pr-5 mr-2 mt-2" name="new_project">Add Project</button> 
+        </form>
+
+    <!-- Display any info -->
+        <form method="POST" class="mt-5">
+            <select class="select mb-3 ml p-1 mt-5" style="width: 350px;" name="p_and_id">
+            <?php foreach($pquery as $pq){ ?>
+                <option value="<?php echo $pq['id'] ?>|<?php echo $pq['projectname'] ?>">ID: <?php echo $pq['id'] ?> &emsp;  Project: <?php echo $pq['projectname'] ?> </option>
+            <?php } ?>    
+            </select>
+
+            <textarea name="content" placeholder="Task Description." class="form-control my-1 mb-3 bg-dark text-white" style="border-radius: 5px;" cols="30" rows="6"></textarea>
             <strong>Deadline: </strong>
             <input class="deadline" name="deadline" type="datetime-local" min="<?php echo date('Y-m-d\TH:i',strtotime("-1 days")); ?>" max="3000-01-01" required>
             <br>
             <br>
-            <button class="btn btn-success pl-5 pr-5 mr-2" name="new_post">Add Task</button>
+            <button class="btn btn-success pl-5 pr-5 mr-2" name="new_task">Add Task</button>
             <a href="index.php" class="btn btn-outline-light my-3">Go Home</a>
         </form>
    </div>

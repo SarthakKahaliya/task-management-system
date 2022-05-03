@@ -1,5 +1,5 @@
 <?php
-
+    include "auth.php";
     include "header.php";
 
 ?>
@@ -25,6 +25,11 @@
                     <div><span style="font-weight: bold;"><?php echo $_REQUEST['user']; ?></span> not found.</div>
                     <a class="btn btn-sm mr-2" style="border: solid 1px black;" href="edit.php?id=<?php echo $id ?>">X</a>
                 </div>
+            <?php }elseif ($_REQUEST['info'] == "exist"){?>
+                <div class="alert alert-warning d-flex" style="justify-content: space-between;" role="alert">
+                    <div><span style="font-weight: bold;"><?php echo $_REQUEST['user']; ?></span> already assigned.</div>
+                    <a class="btn btn-sm mr-2" style="border: solid 1px black;" href="edit.php?id=<?php echo $id ?>">X</a>
+                </div>
             <?php } ?>
         <?php } ?>
 
@@ -38,14 +43,14 @@
 
             <form method="POST" >
                 <input type="text" hidden value='<?php echo $q['id']?>' name="id">
-                <input type="text" placeholder="Blog Title" class="form-control my-3 <?php 
+                <input type="text" readonly placeholder="Project" class="form-control my-3 <?php 
                         if($q['status'] == 'Completed'){ ?> 
                             bg-success  text-black
                             <?php }elseif($q['status'] == 'In_Progress'){ ?> 
                                 bg-warning  text-black
                             <?php }elseif($q['status'] == 'Not_Started'){ ?> 
                                 bg-secondary text-white
-                            <?php } ?> text-center" style="font-weight: bold; font-size: x-large;" name="title" value="<?php echo $q['title']?>">
+                            <?php } ?>" style="font-weight: bold; font-size: x-large;" name="title" value="ID: <?php  echo $q['pid'] ?>       Project: <?php echo $q['title']?>">
                 <textarea name="content" class="form-control my-3 bg-dark text-white" cols="30" rows="6"><?php echo $q['content']?></textarea>
 
                 <div class="d-flex" style="justify-content: space-between;">

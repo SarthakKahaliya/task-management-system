@@ -1,4 +1,8 @@
 
+<?php if(basename($_SERVER['PHP_SELF']) == 'header.php'){
+  header("location: index.php");
+} ?>
+
 <?php
 
     include "logic.php";
@@ -22,17 +26,31 @@
 
     <div class="container">
       <hgroup>
-        <h1 class="site-title mt-3 " style="text-align: center;"><strong>Task Management System</strong></h1>
+        <h1 class="site-title mt-2 " style="text-align: center;"><strong>Task Management System</strong></h1>
       </hgroup>
     
 
-        <br>
-        <nav class="navbar navbar-dark " style="border-radius: 5px">
+        
+        <h3 class="mt-5 pt-5" style="color: white; padding-left: 0px; padding-right: 0px; margin-top: 0px; text-align: center;" <?php if(basename($_SERVER['PHP_SELF']) != 'login.php'){
+              echo "hidden";
+            }  ?>>Login</h3>
+
+        <h3 class="mt-5 pt-5" style="color: white; padding-left: 0px; padding-right: 0px; margin-top: 0px; text-align: center;" <?php if(basename($_SERVER['PHP_SELF']) != 'register.php'){
+              echo "hidden";
+            }  ?>>Sign Up</h3>
+
+
+
+        <nav class="navbar navbar-dark  mt-3 pt-3" style="border-radius: 5px"  <?php if(basename($_SERVER['PHP_SELF']) == 'login.php'){
+              echo "hidden";
+            }  ?>>   
+        
           <div style="display: flex; flex-direction: row; justify-content: space-between; align-items: start;">
+
             <div style="color: white; padding-left: 0px; padding-right: 0px; margin-top: 0px;" <?php if(basename($_SERVER['PHP_SELF']) != 'view.php'){
             echo "hidden";
           }     ?> >
-                <a href="index.php" class="btn btn-light my-3">Go Home</a>
+                <a href="index.php" class="btn btn-light btn-outline-dark my-3">Go Home</a>
             </div>
 
             <div style="color: white; padding-left: 0px; padding-right: 0px; margin-top: 0px;" <?php if(basename($_SERVER['PHP_SELF']) != 'index.php'){
@@ -52,8 +70,12 @@
             </div>
 
           </div>
-
-          <a class="logout btn btn-danger btn-sm" href="logout.php">Logout</a>
+          <div <?php if(basename($_SERVER['PHP_SELF']) == 'login.php' || basename($_SERVER['PHP_SELF']) == 'register.php'){
+            echo "hidden";
+          }     ?> >
+            <a class="logout btn btn-outline-light " href="logout.php"  >Logout</a>
+          </div>
+          
         </nav>
     </div>
 
