@@ -27,7 +27,14 @@
                     <a href="edit.php?id=<?php echo $q['id']?>" class="btn btn-light btn-sm" name="edit">Edit</a>
                     <form method="POST" onSubmit="return confirm('Are you sure you wish to delete this task?');">
                         <input type="text" hidden value='<?php echo $q['id']?>' name="id">
-                        <button class="btn btn-danger btn-sm ml-2" name="delete">Delete</button>
+                        <button class="btn btn-danger btn-sm ml-2"name="delete" 
+                                        <?php 
+
+                                        if($q['creater'] != $usern){
+                                            echo "hidden";
+                                        }
+                                        ?>
+                                        >Delete</button>
                     </form>
                 </div>
 
