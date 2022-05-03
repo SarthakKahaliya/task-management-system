@@ -42,6 +42,7 @@
             ?>
 
             <form method="POST" >
+                <?php echo $q['creater']?>
                 <input type="text" hidden value='<?php echo $q['id']?>' name="id">
                 <input type="text" readonly placeholder="Project" class="form-control my-3 <?php 
                         if($q['status'] == 'Completed'){ ?> 
@@ -54,12 +55,7 @@
                 <textarea name="content" class="form-control my-3 bg-dark text-white" cols="30" rows="6"><?php echo $q['content']?></textarea>
 
                 <div class="d-flex" style="justify-content: space-between;">
-                    <div>
-
-                        <input type="text" placeholder="Enter Username to add." class=" bg-white text-black text-center" name="assign" style="border-radius: 5px; width: 260px;">
-
-                        <button class="btn btn-success btn-sm pl-3 pr-3 ml-2" name="adduser" onclick="return confirm('Are you sure you wish to add this user?')">Add User</button>
-                    </div>
+                    
                     <div>
                         <strong>Status: </strong>
                         <select class="select mb-3 ml-3 p-1" name="status">
@@ -80,8 +76,18 @@
                     <button class="btn btn-primary pl-5 pr-5 mr-2" name="update" onclick="return confirm('Are you sure you wish to make the changes?');">Update</button>
                     <a href="index.php" class="btn btn-light my-3">Go Home</a>
                 </div>
-
                 <br>
+                <br>
+
+
+
+            
+                <div <?php if($q['creater'] != $usern){ echo "hidden"; } ?>>
+
+                    <input type="text" placeholder="Enter Username to add." class=" bg-white text-black text-center" name="assign" style="border-radius: 5px; width: 260px;">
+
+                    <button class="btn btn-success btn-sm pl-3 pr-3 ml-2" name="adduser" onclick="return confirm('Are you sure you wish to add this user?')">Add User</button>
+                </div>
                 <br>
                 <h4>Assigned Users</h4>
                 <div class="row container mt-3">
@@ -91,10 +97,20 @@
                                 <input type="text" name="deleteuser" value="<?php echo $uq['username'] ?>" hidden>
                                 <strong><?php echo $uq['username'] ?></strong>  
                             </div> 
+
                             <div  class="mt-0 mb-0">
-                                <?php if($uq['username'] != $usern){ ?>
+                                <?php if($q['creater'] == $usern){
+                                    if($uq['username'] != $q['creater']){?>
                                 <button class="btn btn-danger btn-sm pt-1 pb-1" onclick="return confirm('Are you sure you want to remove this user from the task?');" name="deleteassign">X</button>
-                            <?php } ?>
+                            <?php   } 
+
+                                }else{
+                                    if($uq['username'] != $q['creater']){
+                                        if($uq['username'] == $usern){?>
+                                    <button class="btn btn-danger btn-sm pt-1 pb-1" onclick="return confirm('Are you sure you want to remove this user from the task?');" name="deleteassign">X</button>
+                                <?php   } 
+                                    } 
+                                }?> 
                             </div>
                         </div>
                     <?php } ?>

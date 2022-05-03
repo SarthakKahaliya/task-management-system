@@ -1,3 +1,19 @@
+CREATE TABLE `assignedusers` (
+ `id` int(11) NOT NULL AUTO_INCREMENT,
+ `projectID` int(11) NOT NULL,
+ `username` varchar(128) NOT NULL,
+ PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=78 DEFAULT CHARSET=utf8mb4
+
+
+CREATE TABLE `projectdata` (
+ `id` int(11) NOT NULL AUTO_INCREMENT,
+ `projectname` varchar(128) NOT NULL,
+ `creater` varchar(128) NOT NULL,
+ PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4
+
+
 CREATE TABLE `taskdata` (
  `id` int(11) NOT NULL AUTO_INCREMENT,
  `pid` int(11) NOT NULL,
@@ -6,21 +22,9 @@ CREATE TABLE `taskdata` (
  `deadline` datetime NOT NULL,
  `status` varchar(20) NOT NULL,
  `createdOn` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+ `creater` varchar(128) NOT NULL,
  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=50 DEFAULT CHARSET=utf8mb4
-
-CREATE TABLE `projectdata` (
- `id` int(11) NOT NULL AUTO_INCREMENT,
- `projectname` varchar(128) NOT NULL,
- PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4
-
-CREATE TABLE `assignedusers` (
- `id` int(11) NOT NULL AUTO_INCREMENT,
- `projectID` int(11) NOT NULL,
- `username` varchar(128) NOT NULL,
- PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=65 DEFAULT CHARSET=utf8mb4
+) ENGINE=InnoDB AUTO_INCREMENT=57 DEFAULT CHARSET=utf8mb4
 
 
 CREATE TABLE `users` (

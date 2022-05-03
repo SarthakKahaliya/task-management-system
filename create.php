@@ -27,7 +27,7 @@
 
             <textarea name="content" placeholder="Task Description." class="form-control my-1 mb-3 bg-dark text-white" style="border-radius: 5px;" cols="30" rows="6"></textarea>
             <strong>Deadline: </strong>
-            <input class="deadline" name="deadline" type="datetime-local" min="<?php echo date('Y-m-d\TH:i',strtotime("-1 days")); ?>" max="3000-01-01" required>
+            <input class="deadline" name="deadline" type="datetime-local" min="<?php echo date('Y-m-d\TH:i') ?>" max="3000-01-01" required>
             <br>
             <br>
             <button class="btn btn-success pl-5 pr-5 mr-2" name="new_task">Add Task</button>

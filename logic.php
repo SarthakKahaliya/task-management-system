@@ -120,7 +120,7 @@
     if(isset($_REQUEST['new_project'])){
         $project_name = $_REQUEST['project_name'];
         
-        $sql = "INSERT INTO projectdata(projectname) VALUES('$project_name')";
+        $sql = "INSERT INTO projectdata(projectname, creater) VALUES('$project_name', '$usern')";
         mysqli_query($conn, $sql);
         header("Location: create.php?info=addedproject");
         exit();
@@ -140,7 +140,7 @@
         $content = $_REQUEST['content'];
         $deadline = $_REQUEST['deadline'];
         
-        $sql = "INSERT INTO taskdata(pid, title, content, deadline, status) VALUES('$pid', '$title', '$content', '$deadline', 'Not_Started')";
+        $sql = "INSERT INTO taskdata(pid, title, content, deadline, status, creater) VALUES('$pid', '$title', '$content', '$deadline', 'Not_Started', '$usern')";
 
         if (mysqli_query($conn, $sql)) {
             $last_id = mysqli_insert_id($conn);
@@ -163,14 +163,26 @@
     if(isset($_REQUEST['delete'])){
         $id = $_REQUEST['id'];
 
-        $sql = "DELETE FROM taskdata WHERE id = $id";
-        mysqli_query($conn, $sql);
+        $sql = "SELECT creater from taskdata WHERE id = $id";
+        $creater = mysqli_query($conn, $sql);
 
-        $sql = "DELETE FROM assignedusers WHERE projectID = $id";
-        mysqli_query($conn, $sql);
+        if($creater == $usern){
 
-        header("Location: index.php?info=deleted");
-        exit();
+            $sql = "DELETE FROM taskdata WHERE id = $id";
+            mysqli_query($conn, $sql);
+
+            $sql = "DELETE FROM assignedusers WHERE projectID = $id";
+            mysqli_query($conn, $sql);
+
+            header("Location: index.php?info=deleted");
+            exit();
+
+        }else{
+
+            header("Location: index.php?info=nottaskcreater");
+            exit();
+
+        }
     }
 
     // Update a post
@@ -245,11 +257,17 @@
         $id = $_REQUEST['id'];
         $username = $_REQUEST['deleteuser'];
 
-        $sql = "DELETE FROM assignedusers WHERE projectID = $id and username = '$username'";
-        mysqli_query($conn, $sql);
+        $sql = "SELECT creater from taskdata WHERE id = $id";
+        $creater = mysqli_query($conn, $sql);
 
-        header("Location: edit.php?info=removed&id=$id&user=$username");
-        exit();
+        if($creater != $username){
+
+            $sql = "DELETE FROM assignedusers WHERE projectID = $id and username = '$username'";
+            mysqli_query($conn, $sql);
+
+            header("Location: edit.php?info=removed&id=$id&user=$username");
+            exit();
+        }
 
     }
 
@@ -264,24 +282,35 @@
             $pid = $p_and_id[0];
             $title = $p_and_id[1];
 
-            $sql = "SELECT * FROM taskdata WHERE pid = $pid";
-            $query = mysqli_query($conn, $sql);
+            $creater = $p_and_id[2];
 
-            foreach ($query as $q){
+            if($creater == $usern){
 
-                $qtaskid = $q['id'];
-                $sql = "DELETE FROM assignedusers WHERE projectID = $qtaskid ";
+
+                $sql = "SELECT * FROM taskdata WHERE pid = $pid";
+                $query = mysqli_query($conn, $sql);
+
+                foreach ($query as $q){
+
+                    $qtaskid = $q['id'];
+                    $sql = "DELETE FROM assignedusers WHERE projectID = $qtaskid ";
+                    mysqli_query($conn, $sql);
+                }
+
+                $sql = "DELETE FROM taskdata WHERE pid = $pid";
                 mysqli_query($conn, $sql);
+
+                $sql = "DELETE FROM projectdata WHERE id = $pid";
+                mysqli_query($conn, $sql);
+
+                header("Location: index.php");
+                exit();
+
+            }else{
+                header("Location: index.php?info=notprojectcreater");
+                exit();
             }
 
-            $sql = "DELETE FROM taskdata WHERE pid = $pid";
-            mysqli_query($conn, $sql);
-
-            $sql = "DELETE FROM projectdata WHERE id = $pid";
-            mysqli_query($conn, $sql);
-
-            header("Location: index.php");
-            exit();
         }
 
 

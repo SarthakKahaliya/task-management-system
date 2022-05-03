@@ -83,16 +83,21 @@ include "header.php";
 
                         ?> >ALL Projects and Tasks</option>
                         <?php foreach($pquery as $pq){ ?>
-                            <option value="<?php echo $pq['id'] ?>|<?php echo $pq['projectname'] ?>" <?php
+                            <option value="<?php echo $pq['id'] ?>|<?php echo $pq['projectname'] ?>|<?php echo $pq['creater'] ?>" <?php
 
                                 if($pselection == $pq['id']){
+                                    $allowDeleteProject = $pq['creater'];
+
                                     echo "selected";
                                 }
 
                             ?>>ID: <?php echo $pq['id'] ?> &emsp;  Project: <?php echo $pq['projectname'] ?> </option>
                         <?php } ?>    
                         </select>
-                        <button class="btn btn-danger" name="delete_project" onclick="return confirm('Deleting the project will delete all the tasks in it too. Are you sure you want to delete it?')">Delete Selected Project</button>
+                        <button <?php 
+                        if($usern != $allowDeleteProject){
+                            echo "hidden";
+                        }?> class="btn btn-danger" name="delete_project" onclick="return confirm('Deleting the project will delete all the tasks in it too. Are you sure you want to delete it?')">Delete Selected Project</button>
                     </div>
 
                     
@@ -190,7 +195,14 @@ include "header.php";
                                     </form>
                                     <form method="POST" onSubmit="return confirm('Are you sure you wish to delete this task?');">
                                         <input type="text" hidden value='<?php echo $q['id']?>' name="id">
-                                        <button class="btn btn-danger btn-sm ml-2"name="delete">Delete</button>
+                                        <button class="btn btn-danger btn-sm ml-2"name="delete" 
+                                        <?php 
+
+                                        if($q['creater'] != $usern){
+                                            echo "hidden";
+                                        }
+                                        ?>
+                                        >Delete</button>
                                     </form>
                                 </div>
                             
