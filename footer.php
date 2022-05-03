@@ -1,4 +1,4 @@
-<footer class="navbar fixed-bottom container d-flex mt-auto py-3 bg-dark text-white" style="justify-content: space-between; border-radius: 5px 5px 0px 0px;">
+<footer class="navbar fixed-bottom container mt-auto py-3 text-white" style="justify-content: space-between; border-radius: 5px 5px 0px 0px; display: grid 1fr 1fr 1fr;">
 	<div>Developed by Sarthak Kahaliya</div>
 
 	<div>Copyright 2022 @ Sarthak Kahaliya</div>

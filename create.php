@@ -14,8 +14,12 @@
         <form method="POST">
             <input type="text" placeholder="Project" class="form-control my-3 bg-dark text-white text-center" name="title" style="border-radius: 5px;">
             <textarea name="content" placeholder="Task Description." class="form-control my-3 bg-dark text-white" style="border-radius: 5px;" cols="30" rows="6"></textarea>
-
-            <button class="btn btn-success pl-5 pr-5" name="new_post">Add Task</button>
+            <strong>Deadline: </strong>
+            <input class="deadline" name="deadline" type="datetime-local" min="<?php echo date('Y-m-d\TH:i',strtotime("-1 days")); ?>" max="3000-01-01" required>
+            <br>
+            <br>
+            <button class="btn btn-success pl-5 pr-5 mr-2" name="new_post">Add Task</button>
+            <a href="index.php" class="btn btn-outline-light my-3">Go Home</a>
         </form>
    </div>
 

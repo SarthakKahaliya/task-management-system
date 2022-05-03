@@ -4,7 +4,7 @@ include "header.php";
 
 ?>
 
-    <div class="container mt-3 " style="margin-bottom: 100px">
+<div class="container mt-3 " style="margin-bottom: 100px;">
 
         <!-- Display any info -->
         <?php if(isset($_REQUEST['info'])){ ?>
@@ -33,23 +33,81 @@ include "header.php";
         <?php } ?>
 
         <!-- Create a new Post button -->
-        <div class="ml-3">
-            <a href="create.php" class="btn btn-outline-dark btn-light text-black pl-4 pr-4 ">+ Add Task</a>
+        <div class="mt-4 ml-3 mr-3 d-flex" style="justify-content: space-between;">
+            <a href="create.php" class="btn btn-outline-dark btn-light text-black pl-4 pr-4 mb-2">+ Add Task</a>
+
+            
+            <form method="post" action="" >
+                <strong>Sort by: </strong>
+                <select class="select mb-3 ml-3 p-1" style="width: 150px" name="orderby" onchange="this.form.submit()" >
+
+                    <option value="created" <?php 
+
+                    if($selection == 'created'){
+                        echo "selected";
+                    }
+                    ?>>Date Created</option>
+
+                    <option value="deadline" <?php 
+
+                    if($selection == 'deadline'){
+                        echo "selected";
+                    }
+                    ?>>Deadline</option>
+                </select>
+
+               <!--  <button type="submit" name="order">Filter</button> -->
+            </form>
         </div>
 
+
+
+        <!-- Headings -->
+        <div  class="container pb-3 mt-3 " style="border: solid 1px white; border-radius: 5px;">
+            <div style="display:flex; margin-top: 5px;">
+                    <div class="container  d-flex">
+                        <div>
+
+                            <!-- project title -->
+                            <div class="card-title mt-2 pr-3" style="width: 140px; padding-bottom: 0px;"><strong>Project</strong></div>
+
+                            <!-- created on and deadline -->
+                            <div style="font-size: 12px; margin-top: -10px; padding-bottom: 3px;"><?php echo 'createdOn' ?></div>
+                        </div>
+
+                        <!-- task -->
+                        <p class="mt-3 pr-3 pl-3" style="width: 500px; text-align: justify; border-left: solid 2px white;  border-right: solid 2px white; padding-top: 2px "><strong>Task</strong></p>
+
+                        <p class="mt-3 pl-4" style="width: 150px; border-right: solid 2px white;"><strong>Deadline</strong></p>
+
+                        <!-- status -->
+                        <p class="mt-3 pl-4" style="width: 150px;"><strong>Status</strong></p>
+
+                        <!-- action -->
+                        <div class="mt-3">
+                            <strong>Action</strong>
+                        </div>
+                    
+                    </div>
+                
+            
+            </div>
+        
+       
+    
         <!-- show all tasks -->
 
         <div >
             <?php foreach($query as $q){ ?>
                 <a href = "view.php?id=<?php echo $q['id']?>" style="text-decoration: none; display:flex; color: <?php 
-                        if($q['status'] == 'Completed'){ ?> 
+                    if($q['status'] == 'Completed'){ ?> 
+                        black;
+                        <?php }elseif($q['status'] == 'In_Progress'){ ?> 
                             black;
-                            <?php }elseif($q['status'] == 'In_Progress'){ ?> 
-                                black;
-                            <?php }elseif($q['status'] == 'Not_Started'){ ?> 
-                                white; text-shadow: 1px 0 0px #00000088, 0 -1px 0px #00000088, 0 1px 0px #00000088, -1px 0 0px #00000088;
-                            <?php } ?> margin-top: 5px;">
-                    <div class="container">
+                        <?php }elseif($q['status'] == 'Not_Started'){ ?> 
+                            white; text-shadow: 1px 0 0px #00000088, 0 -1px 0px #00000088, 0 1px 0px #00000088, -1px 0 0px #00000088;
+                        <?php } ?> margin-top: 5px;">
+                    <div >
                     
                         <div class="<?php 
                         if($q['status'] == 'Completed'){ ?> 
@@ -59,22 +117,32 @@ include "header.php";
                             <?php }elseif($q['status'] == 'Not_Started'){ ?> 
                                 bg-secondary
                             <?php } ?>
-                                 container" style="border-radius: 5px;">
+                                 " style="border-radius: 5px;">
                             <div class="container  d-flex">
                                 <div>
-                                    <h5 class="card-title mt-2 pr-3" style="width: 140px; padding-bottom: 0px;"><strong><?php echo $q['title'];?></strong></h5>
-                                    <div style="font-size: 12px; margin-top: -10px; padding-bottom: 3px;"><?php echo $q['createdOn'] ?></div>
+
+                                    <!-- project title -->
+                                    <h5 class="card-title mt-3 pr-3" style="width: 140px; padding-bottom: 0px;"><strong><?php echo $q['title'];?></strong></h5>
+
+                                    <!-- created on and deadline -->
+                                    <div style="font-size: 12px; margin-top: -10px; padding-bottom: 3px;"><?php echo date("d-m-Y g:i A",strtotime($q['createdOn'])) ?></div>
                                 </div>
-                                <p class="mt-3 pr-3 pl-3" style="width: 600px; text-align: justify; border-left: solid 2px black;  border-right: solid 2px black; padding-top: 2px "><?php echo $q['content'];?></p>
+
+                                <!-- task -->
+                                <p class="mt-3 pr-3 pl-3" style="width: 500px; text-align: justify; border-left: solid 2px black;  border-right: solid 2px black; padding-top: 2px "><?php echo $q['content'];?></p>
+
+                                <!-- deadline -->
+                                <p class="mt-3 pl-4" style="width: 150px; border-right: solid 2px black; color:red; text-shadow: 1px 0 0px #ffffff99, 0 -1px 0px #ffffff99, 0 1px 0px #ffffff99, -1px 0 0px #ffffff99;"><strong><?php echo date("d-m-Y g:i A",strtotime($q['deadline'])) ?></strong></p>
+
                                 <p class="mt-3 pl-4" style="width: 150px;"><strong><?php 
-                        if($q['status'] == 'Completed'){ ?> 
-                            Completed
-                            <?php }elseif($q['status'] == 'In_Progress'){ ?> 
-                                In Progress
-                            <?php }elseif($q['status'] == 'Not_Started'){ ?> 
-                                Not Started
-                            <?php } ?></strong></p>
-                                <div class="d-flex mt-3">
+                                if($q['status'] == 'Completed'){ ?> 
+                                    Completed
+                                    <?php }elseif($q['status'] == 'In_Progress'){ ?> 
+                                        In Progress
+                                    <?php }elseif($q['status'] == 'Not_Started'){ ?> 
+                                        Not Started
+                                    <?php } ?></strong></p>
+                                <div class="d-flex mt-4">
                                     <form>
                                     <a href="edit.php?id=<?php echo $q['id']?>" class="btn btn-light btn-sm" style="margin-top: -6px;" name="edit">Edit</a>
                                     </form>
@@ -91,8 +159,11 @@ include "header.php";
                 </a>
             <?php }?>
         </div>
+
+        </div>
        
     </div>
+
 
     <!-- Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>

@@ -1,18 +1,15 @@
 
 
-
-.logout{
-    color:  white; 
-    padding-left: 20px; 
-    padding-right: 20px;  
-    font-size: 24px; 
-    margin-right: 20px; 
-    padding-bottom: 10px; 
-    padding-top: 10px 
+.deadline{
+    cursor: pointer;
 }
 
-.logout:hover{
-    text-decoration: none;
-    background: #505050;
-    color:  white;
+.deadline::-webkit-calendar-picker-indicator {
+    cursor: pointer;
+  }
+
+
+body{
+    background-image: url('https://wallpapercave.com/wp/wp2665743.jpg');
+    color: white;
 }

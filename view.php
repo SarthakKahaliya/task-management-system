@@ -32,13 +32,12 @@
 
             </div>
             <p class="mt-5 border-left border-dark pl-3"><?php echo $q['content'];?></p>
-            <a href="index.php" class="btn btn-outline-dark my-3">Go Home</a>
                 <br>
                 <br>
                 <h4>Assigned Users</h4>
                 <div class="row container mt-3">
                     <?php foreach($uquery as $uq){ ?>
-                        <div class="card pl-3 mr-3 bg-light" style="display:flex; flex-direction: row; border: solid 1px black;">
+                        <div class="card pl-3 mr-3 bg-transparent" style="display:flex; flex-direction: row; border: solid 1px white;">
                             <div class="d-flex mr-3 pt-1 pb-1">
                                 <strong><?php echo $uq['username'] ?></strong>  
                             </div> 

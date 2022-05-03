@@ -31,10 +31,48 @@ $usern = $_SESSION['username'];
         echo "<h3 class='container bg-dark p-3 text-center text-warning rounded-lg mt-5'>Not able to establish Database Connection<h3>";
     }
 
+
+
+
+
+
+
     // Get data to display on index page
-    $sql = "SELECT * FROM taskdata WHERE id IN(SELECT projectID from assignedusers WHERE username = '$usern')";
+
+    $sql = "SELECT * FROM taskdata WHERE id IN(SELECT projectID from assignedusers WHERE username = '$usern') ORDER BY createdOn ASC";
     $query = mysqli_query($conn, $sql);
+
+    $selection = "created";
+
     // Get user data who are assigned task
+
+
+    if(isset($_REQUEST['orderby'])){
+        $order = $_REQUEST['orderby'];
+        if($order == 'deadline'){
+            $sql = "SELECT * FROM taskdata WHERE id IN(SELECT projectID from assignedusers WHERE username = '$usern') ORDER BY deadline ASC";
+            $query = mysqli_query($conn, $sql);
+
+            $selection = "deadline";
+            
+            
+
+        }
+        if($order == 'created'){
+            $sql = "SELECT * FROM taskdata WHERE id IN(SELECT projectID from assignedusers WHERE username = '$usern') ORDER BY createdOn ASC";
+            $query = mysqli_query($conn, $sql);
+
+            $selection = "created";
+
+        }
+        
+    }
+
+
+    
+   
+
+
 
 
 
@@ -43,8 +81,9 @@ $usern = $_SESSION['username'];
     if(isset($_REQUEST['new_post'])){
         $title = $_REQUEST['title'];
         $content = $_REQUEST['content'];
+        $deadline = $_REQUEST['deadline'];
         
-        $sql = "INSERT INTO taskdata(title, content, status) VALUES('$title', '$content', 'Not_Started')";
+        $sql = "INSERT INTO taskdata(title, content, deadline,status) VALUES('$title', '$content', '$deadline', 'Not_Started')";
 
         if (mysqli_query($conn, $sql)) {
             $last_id = mysqli_insert_id($conn);

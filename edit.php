@@ -73,7 +73,7 @@
                 </div>
                 <div >     
                     <button class="btn btn-primary pl-5 pr-5 mr-2" name="update" onclick="return confirm('Are you sure you wish to make the changes?');">Update</button>
-                    <a href="index.php" class="btn btn-outline-dark my-3">Go Home</a>
+                    <a href="index.php" class="btn btn-light my-3">Go Home</a>
                 </div>
 
                 <br>
@@ -81,7 +81,7 @@
                 <h4>Assigned Users</h4>
                 <div class="row container mt-3">
                     <?php foreach($uquery as $uq){ ?>
-                        <div class="card pl-3 mr-3 bg-light" style="display:flex; flex-direction: row; border: solid 1px black;">
+                        <div class="card pl-3 mr-3 bg-transparent" style="display:flex; flex-direction: row; border: solid 1px white;">
                             <div class="d-flex mr-3 pt-1 pb-1">
                                 <input type="text" name="deleteuser" value="<?php echo $uq['username'] ?>" hidden>
                                 <strong><?php echo $uq['username'] ?></strong>  
