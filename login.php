@@ -2,7 +2,7 @@
 session_start();
 if(  isset($_SESSION['username']) )
 {
-  header("location: ../index.php");
+  header("location: index.php");
   die();
 }
 //connect to database
@@ -24,7 +24,7 @@ if($db)
         {
             $_SESSION['message']="You are now Loggged In";
             $_SESSION['username']=$username;
-            header("location: ../index.php");
+            header("location:index.php");
         }
        else
        {
@@ -37,7 +37,7 @@ if($db)
 
 <?php
 
-include "../components/header.php";
+include "header.php";
 
 ?>
 
@@ -77,7 +77,7 @@ include "../components/header.php";
 
 <?php
 
-include "../components/footer.php";
+include "footer.php";
 
 ?>
 </body>

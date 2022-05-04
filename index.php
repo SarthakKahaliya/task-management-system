@@ -1,7 +1,7 @@
 <?php
 
-include "authentication/auth.php";
-include "components/header.php";
+include "auth.php";
+include "header.php";
 
 ?>
 
@@ -38,10 +38,10 @@ include "components/header.php";
 
 
         <div>
-            <a href="views/create.php" class="btn  btn-success pl-4 pr-4 mb-3 ml-3">+ Add Project/Task</a>
+            <a href="create.php" class="btn  btn-success  pl-4 pr-4 mb-3 ml-3">+ Add Project/Task</a>
         </div>
         <!-- Create a new Post button and Filters -->
-        <div class=" ml-3 mr-3 d-flex" style="justify-content: space-between; ">
+        <div class=" ml-3 mr-3 d-flex" style="justify-content: space-between;">
             
 
 
@@ -74,7 +74,7 @@ include "components/header.php";
                             ?>>Deadline</option>
                         </select>
                     </div>
-                    <div class="mr-3 container-f">
+                    <div class="mr-3">
                         <select class="select mb-3 mr-3 p-1 mt-1" style="width: 350px;" name="pfilter" onchange="this.form.submit()">
                             <option value = "all" <?php 
                             if($pselection == 'all'){
@@ -100,10 +100,9 @@ include "components/header.php";
                         }?> class="btn btn-danger" name="delete_project" onclick="return confirm('Deleting the project will delete all the tasks in it too. Are you sure you want to delete it?')">Delete Selected Project</button>
                     </div>
 
-                     
+                    
                     
                 </div>
-               
 
             </form>
         </div>
@@ -147,7 +146,7 @@ include "components/header.php";
 
         <div >
             <?php foreach($query as $q){ ?>
-                <a href = "views/view.php?id=<?php echo $q['id']?>" style="text-decoration: none; display:flex; color: <?php 
+                <a href = "view.php?id=<?php echo $q['id']?>" style="text-decoration: none; display:flex; color: <?php 
                     if($q['status'] == 'Completed'){ ?> 
                         black;
                         <?php }elseif($q['status'] == 'In_Progress'){ ?> 
@@ -161,7 +160,7 @@ include "components/header.php";
                         if($q['status'] == 'Completed'){ ?> 
                             bg-success 
                             <?php }elseif($q['status'] == 'In_Progress'){ ?> 
-                                bg-info 
+                                bg-warning 
                             <?php }elseif($q['status'] == 'Not_Started'){ ?> 
                                 bg-secondary
                             <?php } ?>
@@ -192,7 +191,7 @@ include "components/header.php";
                                     <?php } ?></strong></p>
                                 <div class="d-flex mt-4">
                                     <form>
-                                    <a href="views/edit.php?id=<?php echo $q['id']?>" class="btn btn-light btn-sm" style="margin-top: -6px;" name="edit">Edit</a>
+                                    <a href="edit.php?id=<?php echo $q['id']?>" class="btn btn-light btn-sm" style="margin-top: -6px;" name="edit">Edit</a>
                                     </form>
                                     <form method="POST" onSubmit="return confirm('Are you sure you wish to delete this task?');">
                                         <input type="text" hidden value='<?php echo $q['id']?>' name="id">
@@ -228,7 +227,7 @@ include "components/header.php";
 
 <?php
 
-include "components/footer.php";
+include "footer.php";
 
 ?>
 </body>

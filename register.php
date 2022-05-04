@@ -32,7 +32,7 @@ if(isset($_POST['register_btn']))
                 mysqli_query($db,$sql);  
                 $_SESSION['message']="You are now logged in"; 
                 $_SESSION['username']=$username;
-                header("location: ../index.php");  //redirect home page
+                header("location: index.php");  //redirect home page
             }
             else
             {
@@ -44,7 +44,7 @@ if(isset($_POST['register_btn']))
 ?>
 
 <?php
-include "../components/header.php";
+include "header.php";
 ?>
 
     <main class="main-content">
@@ -92,7 +92,7 @@ include "../components/header.php";
 </div>
 <?php
 
-include "../components/footer.php";
+include "footer.php";
 
 ?>
 </body>

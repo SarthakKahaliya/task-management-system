@@ -122,7 +122,7 @@
         
         $sql = "INSERT INTO projectdata(projectname, creater) VALUES('$project_name', '$usern')";
         mysqli_query($conn, $sql);
-        header("Location: views/create.php?info=addedproject");
+        header("Location: create.php?info=addedproject");
         exit();
 
     }
@@ -213,7 +213,7 @@
                     $exist = mysqli_query($conn, $sql);
                     if($exist){
                         if(mysqli_num_rows($exist)>=1){
-                            header("Location: views/edit.php?info=exist&id=$id&user=$username");
+                            header("Location: edit.php?info=exist&id=$id&user=$username");
                             exit();
                         }else{
 
@@ -222,14 +222,14 @@
                                 $sql = "INSERT INTO assignedusers(taskID, username) VALUES('$id', '$username')";
                                 mysqli_query($conn, $sql);
 
-                                header("Location: views/edit.php?info=added&id=$id&user=$username");
+                                header("Location: edit.php?info=added&id=$id&user=$username");
                                 exit();
                             }
 
                         }
                     }
                 }else{
-                    header("Location: views/edit.php?info=usernotfound&id=$id&user=$username");
+                    header("Location: edit.php?info=usernotfound&id=$id&user=$username");
                     exit();
                 }
             
@@ -257,7 +257,7 @@
         $sql = "DELETE FROM assignedusers WHERE taskID = $id and username = '$username'";
         mysqli_query($conn, $sql);
 
-        header("Location: views/edit.php?info=removed&id=$id&user=$username");
+        header("Location: edit.php?info=removed&id=$id&user=$username");
         exit();
         
         
