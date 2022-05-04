@@ -1,6 +1,6 @@
 
 <?php if(basename($_SERVER['PHP_SELF']) == 'auth.php'){
-  header("location: index.php");
+  header("location: ../index.php");
 } ?>
 
 <?php

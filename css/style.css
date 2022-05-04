@@ -10,7 +10,7 @@
 
 
 body{
-    background-image: url('bg-image.png');
+    background-image: url('../assests/bg-image.png');
     color: white;
 }
 

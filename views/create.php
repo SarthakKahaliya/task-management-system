@@ -1,7 +1,7 @@
 <?php
     
-    include "auth.php";
-    include "header.php";
+    include "../authentication/auth.php";
+    include "../components/header.php";
 
 
 
@@ -31,7 +31,7 @@
             <br>
             <br>
             <button class="btn btn-success pl-5 pr-5 mr-2" name="new_task">Add Task</button>
-            <a href="index.php" class="btn btn-outline-light my-3">Go Home</a>
+            <a href="../index.php" class="btn btn-outline-light my-3">Go Home</a>
         </form>
    </div>
 
@@ -42,7 +42,7 @@
 
 <?php
 
-include "footer.php";
+include "../components/footer.php";
 
 ?>
 </body>
