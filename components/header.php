@@ -85,12 +85,6 @@
           <div <?php if(basename($_SERVER['PHP_SELF']) == 'login.php' || basename($_SERVER['PHP_SELF']) == 'register.php'){
             echo "hidden";
           }     ?> >
-            <a class="logout btn btn-outline-light "  <?php if(basename($_SERVER['PHP_SELF']) == 'index.php'){ ?>
-              href="authentication/logout.php"
-            <?php }else{ ?>
-              href="../authentication/logout.php"
-              <?php 
-            }?>  >Logout</a>
 
 
             <a  <?php if(basename($_SERVER['PHP_SELF']) == 'index.php'){ ?>
@@ -99,6 +93,16 @@
               href="../index.php"
               <?php 
             }?> class="btn btn-outline-light my-3">Home</a>
+
+            <a class="logout btn btn-danger "  <?php if(basename($_SERVER['PHP_SELF']) == 'index.php'){ ?>
+              href="authentication/logout.php"
+            <?php }else{ ?>
+              href="../authentication/logout.php"
+              <?php 
+            }?>  >Logout</a>
+
+
+            
           </div>
           
         </nav>
