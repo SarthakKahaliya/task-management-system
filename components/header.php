@@ -86,7 +86,7 @@
             echo "hidden";
           }     ?> >
             <a class="logout btn btn-outline-light "  <?php if(basename($_SERVER['PHP_SELF']) == 'index.php'){ ?>
-              
+              href="authentication/logout.php"
             <?php }else{ ?>
               href="../authentication/logout.php"
               <?php 
