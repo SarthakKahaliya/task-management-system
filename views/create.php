@@ -18,11 +18,15 @@
 
     <!-- Display any info -->
         <form method="POST" class="mt-5">
-            <select class="select mb-3 ml p-1 mt-5" style="width: 350px;" name="p_and_id">
-            <?php foreach($pquery as $pq){ ?>
-                <option value="<?php echo $pq['id'] ?>|<?php echo $pq['projectname'] ?>">ID: <?php echo $pq['id'] ?> &emsp;  Project: <?php echo $pq['projectname'] ?> </option>
-            <?php } ?>    
-            </select>
+            <div class="d-flex">
+                <h5>Select Project: </h5>
+                <select class="select mb-3 ml-3 p-1 " style="width: 350px;" name="p_and_id">
+                <?php foreach($pquery as $pq){ ?>
+
+                    <option value="<?php echo $pq['id'] ?>|<?php echo $pq['projectname'] ?>">ID: <?php echo $pq['id'] ?> &emsp;  Project: <?php echo $pq['projectname'] ?> </option>
+                <?php } ?>    
+                </select>
+            </div>
 
             <textarea name="content" placeholder="Task Description." class="form-control my-1 mb-3 bg-dark text-white" style="border-radius: 5px;" cols="30" rows="6"></textarea>
             <strong>Deadline: </strong>
