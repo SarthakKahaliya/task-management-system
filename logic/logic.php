@@ -175,8 +175,16 @@
         $sql = "DELETE FROM assignedusers WHERE taskID = $id";
         mysqli_query($conn, $sql);
 
-        header("Location: ../index.php?info=deleted");
-        exit();
+        if(basename($_SERVER['PHP_SELF']) == 'index.php'){ 
+              header("Location: index.php?info=deleted");
+              exit();
+             }else{ 
+              header("Location: ../index.php?info=deleted");
+              exit();
+             
+            }
+
+        
 
     }
 
