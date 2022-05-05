@@ -1,4 +1,4 @@
-co<?php
+<?php
 
 include "authentication/auth.php";
 include "components/header.php";
