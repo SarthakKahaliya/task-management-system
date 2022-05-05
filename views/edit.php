@@ -1,6 +1,7 @@
 <?php
-    include "auth.php";
-    include "header.php";
+
+    include "../authentication/auth.php";
+    include "../components/header.php";
 
 ?>
   
@@ -52,7 +53,7 @@
                 <textarea name="content" class="form-control my-3 bg-dark text-white" cols="30" rows="6"><?php echo $q['content']?></textarea>
 
                 <div class="d-flex" style="justify-content: space-between;">
-                    
+                    <div style="width:110%;float:left;" class="container-fluid">
                     <div>
                         <strong>Status: </strong>
                         <select class="select mb-3 ml-3 p-1" name="status">
@@ -67,29 +68,37 @@
                             <?php } ?>>Completed</option>
                         </select>
                     </div>
+                </div>
+                <div class="container-fluid" style="width:21%;float: right;">
+                        <div >     
+                    <button class="btn btn-info pl-5 pr-5 mr-2" name="update" onclick="return confirm('Are you sure you wish to make the changes?');">Update</button>
+                   
+                </div>
+                    </div>
 
                 </div>
-                <div >     
-                    <button class="btn btn-primary pl-5 pr-5 mr-2" name="update" onclick="return confirm('Are you sure you wish to make the changes?');">Update</button>
-                    <a href="index.php" class="btn btn-light my-3">Go Home</a>
-                </div>
-                <br>
-                <br>
+               
+               
+               
 
 
 
             
                 <div <?php if($q['creater'] != $usern){ echo "hidden"; } ?>>
 
-                    <input type="text" placeholder="Enter Username to add." class=" bg-white text-black text-center" name="assign" style="border-radius: 5px; width: 260px;">
+                    <input type="text" placeholder="Enter name" class=" bg-white text-black text-center" name="assign" style="border-radius: 5px; width: 100px;">
 
                     <button class="btn btn-success btn-sm pl-3 pr-3 ml-2" name="adduser" onclick="return confirm('Are you sure you wish to add this user?')">Add User</button>
                 </div>
+                <br>
+                <div style="width: 20%;float: left;">
 
                 <h4>Created By</h4>
                 <div class="btn btn-info mb-3"><?php echo $q['creater'] ?></div>
+            </div>
+            <div style="width:fit-content;float: right; " class="container-fluid">
 
-                <h4>Assigned Users</h4>
+                <h4 tyle="width:12; float: inline-end">Assigned Users</h4>
                 <div class="row container mt-3">
                     <form>
                         <div class="d-flex" >
@@ -134,7 +143,9 @@
                         </div>
                     </form>
                 </div> 
+            </div>
             </form>
+            <br><br><br>
         <?php } ?>  
 
    </div>
@@ -146,7 +157,7 @@
 
 <?php
 
-include "footer.php";
+include "../components/footer.php";
 
 ?>
 </body>

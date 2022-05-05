@@ -1,7 +1,7 @@
-<?php
+co<?php
 
-include "auth.php";
-include "header.php";
+include "authentication/auth.php";
+include "components/header.php";
 
 ?>
 
@@ -38,7 +38,7 @@ include "header.php";
 
 
         <div>
-            <a href="create.php" class="btn  btn-success  pl-4 pr-4 mb-3 ml-3">+ Add Project/Task</a>
+            <a href="views/create.php" class="btn  btn-success  pl-4 pr-4 mb-3 ml-3">+ Add Project/Task</a>
         </div>
         <!-- Create a new Post button and Filters -->
         <div class=" ml-3 mr-3 d-flex" style="justify-content: space-between;">
@@ -146,7 +146,7 @@ include "header.php";
 
         <div >
             <?php foreach($query as $q){ ?>
-                <a href = "view.php?id=<?php echo $q['id']?>" style="text-decoration: none; display:flex; color: <?php 
+                <a href = "views/view.php?id=<?php echo $q['id']?>" style="text-decoration: none; display:flex; color: <?php 
                     if($q['status'] == 'Completed'){ ?> 
                         black;
                         <?php }elseif($q['status'] == 'In_Progress'){ ?> 
@@ -191,7 +191,7 @@ include "header.php";
                                     <?php } ?></strong></p>
                                 <div class="d-flex mt-4">
                                     <form>
-                                    <a href="edit.php?id=<?php echo $q['id']?>" class="btn btn-light btn-sm" style="margin-top: -6px;" name="edit">Edit</a>
+                                    <a href="views/edit.php?id=<?php echo $q['id']?>" class="btn btn-light btn-sm" style="margin-top: -6px;" name="edit">Edit</a>
                                     </form>
                                     <form method="POST" onSubmit="return confirm('Are you sure you wish to delete this task?');">
                                         <input type="text" hidden value='<?php echo $q['id']?>' name="id">
@@ -227,7 +227,7 @@ include "header.php";
 
 <?php
 
-include "footer.php";
+include "components/footer.php";
 
 ?>
 </body>

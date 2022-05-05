@@ -1,7 +1,7 @@
 <?php
     
-    include "auth.php";
-    include "header.php";
+    include "../authentication/auth.php";
+    include "../components/header.php";
 
 ?>
 
@@ -71,7 +71,7 @@
 
 <?php
 
-include "footer.php";
+include "../components/footer.php";
 
 ?>
 </body>

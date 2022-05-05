@@ -10,7 +10,7 @@ session_start();
 $db=mysqli_connect("localhost","root","","mysite");
 
 if(!$_SESSION['username']){
-  header("location: login.php");
+  header("location: authentication/login.php");
   exit();
 }
 

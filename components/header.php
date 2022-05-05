@@ -4,8 +4,13 @@
 } ?>
 
 <?php
-
-    include "logic.php";
+    if(basename($_SERVER['PHP_SELF']) == 'index.php'){ 
+              include "logic/logic.php";
+             }else{ 
+              include "../logic/logic.php";
+             
+            }
+    
 
 ?>
 
@@ -17,7 +22,14 @@
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
-    <link rel="stylesheet" href="style.css">
+
+    <?php if(basename($_SERVER['PHP_SELF']) == 'index.php'){ ?>
+              <link rel="stylesheet" href="assets/css/style.css">
+            <?php }else{ ?>
+              <link rel="stylesheet" href="../assets/css/style.css">
+              <?php 
+            }?>
+    
 
 
     <title>Task Management System</title>
@@ -50,13 +62,13 @@
             <div style="color: white; padding-left: 0px; padding-right: 0px; margin-top: 0px;" <?php if(basename($_SERVER['PHP_SELF']) != 'view.php'){
             echo "hidden";
           }     ?> >
-                <a href="index.php" class="btn btn-light btn-outline-dark my-3">Go Home</a>
+                
             </div>
 
             <div style="color: white; padding-left: 0px; padding-right: 0px; margin-top: 0px;" <?php if(basename($_SERVER['PHP_SELF']) != 'index.php'){
             echo "hidden";
           }     ?> >
-                <h3>Welcome! <?php echo strtoupper($_SESSION['username']); ?></h3>
+                <h3>WELCOME <?php echo strtoupper($_SESSION['username']); ?>!</h3>
             </div>
             <div style="color: white; padding-left: 0px; padding-right: 0px; margin-top: 0px;" <?php if(basename($_SERVER['PHP_SELF']) != 'create.php'){
             echo "hidden";
@@ -73,7 +85,13 @@
           <div <?php if(basename($_SERVER['PHP_SELF']) == 'login.php' || basename($_SERVER['PHP_SELF']) == 'register.php'){
             echo "hidden";
           }     ?> >
-            <a class="logout btn btn-outline-light " href="logout.php"  >Logout</a>
+            <a class="logout btn btn-outline-light " href="authentication/logout.php"  >Logout</a>
+            <a  <?php if(basename($_SERVER['PHP_SELF']) == 'index.php'){ ?>
+              href="index.php"
+            <?php }else{ ?>
+              href="../index.php"
+              <?php 
+            }?> class="btn btn-outline-light my-3">Home</a>
           </div>
           
         </nav>

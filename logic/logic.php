@@ -1,6 +1,6 @@
 
 <?php if(basename($_SERVER['PHP_SELF']) == 'logic.php'){
-    header("location: index.php");
+    header("location: ../index.php");
 } ?>
 
 <?php
@@ -147,7 +147,7 @@
             $sql = "INSERT INTO assignedusers(taskID, username) VALUES('$last_id', '$usern')";
             mysqli_query($conn, $sql);
 
-            header("Location: index.php?info=added");
+            header("Location: ../index.php?info=added");
             exit();
         }
     }
@@ -175,7 +175,7 @@
         $sql = "DELETE FROM assignedusers WHERE taskID = $id";
         mysqli_query($conn, $sql);
 
-        header("Location: index.php?info=deleted");
+        header("Location: ../index.php?info=deleted");
         exit();
 
     }
@@ -190,7 +190,7 @@
         $sql = "UPDATE taskdata SET content = '$content', status = '$status' WHERE id = $id";
         mysqli_query($conn, $sql);
 
-        header("Location: index.php?info=updated");
+        header("Location: ../index.php?info=updated");
         exit();
         
     }
@@ -239,7 +239,7 @@
             $sql = "UPDATE taskdata SET content = '$content', status = '$status' WHERE id = $id";
             mysqli_query($conn, $sql);
 
-            header("Location: index.php?info=updated");
+            header("Location: ../index.php?info=updated");
             exit();
         }
     }
@@ -273,7 +273,7 @@
         $sql = "DELETE FROM assignedusers WHERE taskID = $id and username = '$username'";
         mysqli_query($conn, $sql);
 
-        header("Location: index.php");
+        header("Location: ../index.php");
         exit();
 
         
