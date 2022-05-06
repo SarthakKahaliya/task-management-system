@@ -3,6 +3,7 @@
   header("location: index.php");
 } ?>
 
+ <!-- Validating if a user is signed in or not -->
 <?php
 session_start();
 
@@ -13,6 +14,8 @@ if(!$_SESSION['username']){
   header("location: authentication/login.php");
   exit();
 }
+
+// Current User
 
 $usern = $_SESSION['username'];
 

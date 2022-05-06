@@ -43,6 +43,8 @@ include "../components/header.php";
 
   <main class="main-content">
 
+   <!-- checking session  -->
+
   <?php
       if(isset($_SESSION['message']))
       {
@@ -50,6 +52,8 @@ include "../components/header.php";
            unset($_SESSION['message']);
       }
   ?>
+
+  <!-- Login Page -->
 
   <div style="display:flex; justify-content: center; flex-direction: column; align-items: center;">
     <br>

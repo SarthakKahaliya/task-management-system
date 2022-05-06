@@ -40,7 +40,7 @@ include "components/header.php";
         <div>
             <a href="views/create.php" class="btn  btn-success  pl-4 pr-4 mb-3 ml-3">+ Add Project/Task</a>
         </div>
-        <!-- Create a new Post button and Filters -->
+        <!-- Create a new Project or Task button and Filters -->
         <div class=" ml-3 mr-3 d-flex" style="justify-content: space-between;">
             
 
@@ -109,7 +109,7 @@ include "components/header.php";
 
 
 
-        <!-- Headings -->
+        <!-- Table Headings -->
         <div  class="container pb-3 mt-3 " style="border: solid 1px white; border-radius: 5px;">
             <div style="display:flex; margin-top: 5px;">
                     <div class="container  d-flex">
@@ -142,7 +142,7 @@ include "components/header.php";
         
        
     
-        <!-- show all tasks -->
+        <!-- Show all tasks -->
 
         <div >
             <?php foreach($query as $q){ ?>

@@ -6,14 +6,21 @@
 <?php
 
     // Don't display server errors 
-    ini_set("display_errors", "off");
+
+    ini_set("display_errors", "on");
+
 
     // Initialize a database connection
+
     $conn = mysqli_connect("localhost", "root", "", "mysite");
 
+
     // Destroy if not possible to create a connection
+
     if(!$conn){
         echo "<h3 class='container bg-dark p-3 text-center text-warning rounded-lg mt-5'>Not able to establish Database Connection<h3>";
+    }else{
+        echo "success";
     }
 
 
@@ -31,10 +38,16 @@
     $pselection = "all";
 
 
+    // Get Project Data
+
     $sql = "SELECT * FROM projectdata";
     $pquery = mysqli_query($conn, $sql);
 
-    
+
+
+
+
+    //Sorting Project Listed on index based on project and order by deadline and created on ascending and descending
 
     if(isset($_REQUEST['pfilter']) || isset($_REQUEST['orderby'])){
         $selection = $_REQUEST['orderby'];
@@ -106,14 +119,6 @@
 
     }
 
-
-
-
-    // Get user task data whoever is assigned task
-
-
-
-
     
    // Create a new project
 
@@ -128,11 +133,8 @@
     }
 
 
-
-
-
-
     // Create a new task
+
     if(isset($_REQUEST['new_task'])){
         $p_and_id = explode('|', $_REQUEST['p_and_id']);
         $pid = $p_and_id[0];
@@ -153,6 +155,7 @@
     }
 
     // Get task data based on id
+
     if(isset($_REQUEST['id'])){
         $id = $_REQUEST['id'];
         $sql = "SELECT * FROM taskdata WHERE id = $id";
@@ -161,16 +164,20 @@
         $uquery = mysqli_query($conn, $usql);
     }
 
+
     // Delete a task
+
     if(isset($_REQUEST['delete'])){
         $id = $_REQUEST['id'];
 
         $sql = "SELECT creater from taskdata WHERE id = $id";
         $creater = mysqli_query($conn, $sql);
 
-
         $sql = "DELETE FROM taskdata WHERE id = $id";
         mysqli_query($conn, $sql);
+
+
+        // Deleting all the users assigned to the task
 
         $sql = "DELETE FROM assignedusers WHERE taskID = $id";
         mysqli_query($conn, $sql);
@@ -189,6 +196,7 @@
     }
 
     // Update a post
+
     if(isset($_REQUEST['update'])){
         $id = $_REQUEST['id'];
         $content = $_REQUEST['content'];
@@ -203,7 +211,8 @@
         
     }
 
-        // Assign User
+    // Assigning User
+
     if(isset($_REQUEST['adduser'])){
         $id = $_REQUEST['id'];
         $content = $_REQUEST['content'];
@@ -272,6 +281,7 @@
     }
 
 
+    // Deleting only one specific assigned user who is not the creater
 
     if(isset($_REQUEST['deleteonlythis'])){
 
@@ -289,7 +299,7 @@
 
 
 
-    // Delete Project
+    // Delete Project and related task and assigned users
 
     if(isset($_REQUEST['delete_project'])){
 

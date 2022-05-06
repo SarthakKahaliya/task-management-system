@@ -10,7 +10,7 @@
 
    <div class="container mt-5" style="margin-bottom: 100px">
 
-
+     <!-- Create form -->
         <form method="POST">
             <input type="text" class="form-control"  name="project_name" placeholder="Project Name">
             <button class="btn btn-success pl-5 pr-5 mr-2 mt-2" name="new_project">Add Project</button> 

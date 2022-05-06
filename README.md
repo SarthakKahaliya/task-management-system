@@ -1,5 +1,10 @@
+
 # Task Management System
-with Login and registration where a user can assign task to others which will show up on their dashboard, made with help of HTLM, CSS, PHP, MySqli.
+
+CS5704 - Software Engineering Project
+<br/>
+Created By: [Sarthak Kahaliya](https://github.com/SarthakKahaliya) &nbsp; [Priyanshi Sharma](https://github.com/priyanshi2106) &nbsp; [Sarthak Vinayaka](https://github.com/sarthakvinayaka)
+<br/>
 
 with Login and registration where a user can assign task to others which will show up on their dashboard, made with help of HTLM, CSS, PHP, MySqli.
 
@@ -16,3 +21,4 @@ with Login and registration where a user can assign task to others which will sh
 4. Create a database with name 'mysite' and click on it.
 5. Then click import and select 'mysite.sql' file provided in the database folder.
 6. Access the website on a web-browser with the link http://localhost/{Name_of_the_folder}/index.php
+

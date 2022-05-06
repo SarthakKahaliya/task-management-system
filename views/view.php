@@ -5,7 +5,7 @@
 
 ?>
 
-
+    <!-- View Display -->
    <div class="container mt-5" style="margin-bottom: 100px">
 
         <?php foreach($query as $q){

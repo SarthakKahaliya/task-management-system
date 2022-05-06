@@ -61,7 +61,7 @@ include "../components/header.php";
         }
     ?>
 
-
+    <!-- Sign Up page -->
     <div style="display:flex; justify-content: center; flex-direction: column; align-items: center;">
       <br>
 
