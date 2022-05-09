@@ -3,9 +3,8 @@
 
 # Task Management System
 
-CS5704 - Software Engineering Project
 <br/>
-Created By: [Sarthak Kahaliya](https://github.com/SarthakKahaliya) &nbsp; [Priyanshi Sharma](https://github.com/priyanshi2106) &nbsp; [Sarthak Vinayaka](https://github.com/sarthakvinayaka)
+Created By: [Sarthak Kahaliya](https://github.com/SarthakKahaliya)
 <br/>
 
 with Login and registration where a user can assign task to others which will show up on their dashboard, made with help of HTLM, CSS, PHP, MySqli.
