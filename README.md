@@ -4,9 +4,6 @@
 # Task Management System
 
 <br/>
-Created By: [Live Webiste Here](https://sarthak-task-management-system.herokuapp.com/)
-
-<br/>
 
 with Login and registration where a user can assign task to others which will show up on their dashboard, made with help of HTLM, CSS, PHP, MySqli.
 
